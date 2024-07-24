@@ -14,20 +14,21 @@ function Home() {
     const addNewTask = (title) => {
         if (title !== "") {
             //Last ID
-            const lastID = tasks.length ===0?0:tasks[tasks.length - 1].id;
-             
+            const lastID = tasks.length === 0 ? 0 : tasks[tasks.length - 1].id;
+
             const newTask = {
-                id: lastID,
-                title: title
+                id: lastID + 1,
+                title: title,
+                completed: false,
             }
             setTask([...tasks, newTask]);
             setInputTast("");
         }
     }
 
-    const removeTask=(id)=>{
-        setTask((prevTask)=>{
-            prevTask.filter(task => task.id !== id);
+    const removeTask = (id) => {
+        setTask((prevTask) => {
+            return prevTask.filter(task => task.id !== id);
         });
     }
 
@@ -60,16 +61,30 @@ function Home() {
             {/* List all tasks */}
             <section className='p-5 border-t-4 m-5'>
                 {
-                    tasks&&tasks.map((task) => {
+                    tasks && tasks.map((task) => {
                         return (
                             <div key={task.id}
-                            className='flex flex-row items-center justify-center gap-4'
+                                className='flex flex-row items-center justify-center gap-4'
                             >
-                                <p className='bg-purple-400 p-2 m-2 rounded-md'>{task.title}</p>
-                                <div onClick={()=>removeTask(task.id)} className='p-3 bg-red-500 rounded-md cursor-pointer text-white'>
+                                <p className={
+                                    task.completed ? 'bg-green-400 p-2 m-2 rounded-md' : 'bg-purple-400 p-2 m-2 rounded-md'
+                                }>{task.completed? task.title+" (Completed!)":task.title}</p>
+                                <div onClick={() => removeTask(task.id)} className='p-3 bg-red-500 rounded-md cursor-pointer text-white'>
                                     <FiTrash2 />
                                 </div>
-                                <div className='p-3 bg-green-500 rounded-md cursor-pointer text-white'>
+                                <div
+                                    onClick={() => {
+                                        setTask(tasks.map((item) => {
+                                            if (item.id === task.id) {
+                                                return { ...item, completed: true };
+                                            }
+                                            
+                                            return item;
+                                        }
+                                        ))
+                                    }
+                                    }
+                                    className='p-3 bg-green-500 rounded-md cursor-pointer text-white'>
                                     <FiCheckCircle />
                                 </div>
                             </div>
