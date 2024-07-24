@@ -68,7 +68,7 @@ function Home() {
                             >
                                 <p className={
                                     task.completed ? 'bg-green-400 p-2 m-2 rounded-md' : 'bg-purple-400 p-2 m-2 rounded-md'
-                                }>{task.completed? task.title+" (Completed!)":task.title}</p>
+                                }>{task.completed ? task.title + " (Completed!)" : task.title}</p>
                                 <div onClick={() => removeTask(task.id)} className='p-3 bg-red-500 rounded-md cursor-pointer text-white'>
                                     <FiTrash2 />
                                 </div>
@@ -78,7 +78,6 @@ function Home() {
                                             if (item.id === task.id) {
                                                 return { ...item, completed: true };
                                             }
-                                            
                                             return item;
                                         }
                                         ))
