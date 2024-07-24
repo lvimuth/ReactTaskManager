@@ -6,10 +6,6 @@ function Home() {
 
     //Task State
     const [tasks, setTask] = useState([
-        {
-            id: 1,
-            title: "Default Task"
-        },
     ]);
 
     //User input task state
@@ -18,7 +14,8 @@ function Home() {
     const addNewTask = (title) => {
         if (title !== "") {
             //Last ID
-            const lastID = tasks[tasks.length - 1].id;
+            const lastID = tasks.length ===0?0:tasks[tasks.length - 1].id;
+             
             const newTask = {
                 id: lastID,
                 title: title
@@ -63,7 +60,7 @@ function Home() {
             {/* List all tasks */}
             <section className='p-5 border-t-4 m-5'>
                 {
-                    tasks.map((task) => {
+                    tasks&&tasks.map((task) => {
                         return (
                             <div key={task.id}
                             className='flex flex-row items-center justify-center gap-4'
